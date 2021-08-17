@@ -27,3 +27,32 @@ declare var $: {
 }
 $('.awesome').show();
 // $(123).show();
+
+function foo(arg: string | null | undefined) {
+    if(arg != null) {
+        // `!=`がnullとundefinedを除外しているので、引数argは文字列です。
+        console.log(arg.toUpperCase);
+    }
+}
+
+// TypeScriptでは値と構造を分離してドキュメントのようにわかりやすくすることができます。下記のようなコードを想像してください
+
+function foo1() {
+    const flg : boolean = true;
+    if (flg) {
+        return {a:1, b:2};
+    } else {
+        return {a:1,b:undefined};
+    }
+}
+
+// これは、次のように型アノテーションを使用すべきです。↓
+
+function foo2() : {a:number,b?:number}{
+    const flg : boolean = true;
+    if (flg) {
+        return {a:1, b:2};
+    } else {
+        return {a:1};
+    }
+}
